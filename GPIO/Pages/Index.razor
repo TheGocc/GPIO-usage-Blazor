@@ -1,21 +1,36 @@
 ﻿@page "/"
 @inject IGpioManager GpioManager
 
-<h1>Hello, world!</h1>
+<h3>Read From pins</h3>
+@foreach (var item in GpioManager.GpioPins)
+{
+    <div>@item.GpioAddress is @item.GpioValue</div>
+}
 
-Welcome to your new app.
-
-<SurveyPrompt Title="How is Blazor working for you?" />
+<br />
+<h3>Add new Pin</h3>
+<button @onclick="AddNewPin">10</button>
 
 
 @code{ 
-
-    protected override void OnInitialized()
+    protected override void OnAfterRender(bool firstRender)
     {
-        var pin = new Model.GpioPin(1, Model.GpioType.Output);
+        if(firstRender){
+            var pin = new Model.GpioPin(1, Model.GpioType.Output);
+            GpioManager.GpioPins.Add(pin);
+
+            pin.PropertyChanged += (o, e) => StateHasChanged();
+            StateHasChanged();
+        }
+    }
+
+
+    private void AddNewPin()
+    {
+        var pin = new Model.GpioPin(10, Model.GpioType.Output);
         GpioManager.GpioPins.Add(pin);
 
-        pin.PropertyChanged += (o, e) => StateHasChanged();
-
+        //Write to pin
+        pin.GpioValue = true;
     }
 }

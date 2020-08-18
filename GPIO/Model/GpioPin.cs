@@ -9,7 +9,7 @@ namespace GPIO.Model
     {
         public int GpioAddress{ get; set; }
         public GpioType Type { get; set; }
-        public bool GpioOutput
+        public bool GpioValue
         {
             get { return GetProperty<bool>(); }
             set { SetProperty(value); }
@@ -19,7 +19,7 @@ namespace GPIO.Model
         {
             this.Type = type;
             this.GpioAddress = address;
-            this.GpioOutput = false;
+            this.GpioValue = false;
         }
 
 
