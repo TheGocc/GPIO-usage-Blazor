@@ -29,14 +29,20 @@ namespace GPIO
         private void Pin_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             var pin = sender as GpioPin;
-            if (pin.Type == GpioType.Input)
-            {
-                //TODO: read from GPIO
-            }
             if (pin.Type == GpioType.Output)
             {
                 //TODO: write to GPIO
             }
+        }
+
+
+        public void ReadEveryPin()
+        {
+            foreach (var pin in GpioPins)
+            {
+                //TODO: Read from one pin
+            }
+
         }
     }
 }
