@@ -11,10 +11,11 @@ namespace GPIO
 {
     public class GpioManager : IGpioManager
     {
-        public ObservableCollection<GpioPin> GpioPins { get; set; } = new ObservableCollection<GpioPin>();
+        public ObservableCollection<GpioPin> GpioPins { get; set; }
 
         public GpioManager()
         {
+            GpioPins = new ObservableCollection<GpioPin>();
             GpioPins.CollectionChanged += GpioPins_CollectionChanged;
         }
 

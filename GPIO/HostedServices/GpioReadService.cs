@@ -21,8 +21,7 @@ namespace GPIO.HostedServices
         }
         public Task StartAsync(CancellationToken cancellationToken)
         {
-            _timer = new Timer(ReadFromGpio, null, TimeSpan.Zero,
-                TimeSpan.FromSeconds(1));
+            _timer = new Timer(ReadFromGpio, null, TimeSpan.Zero, TimeSpan.FromSeconds(1));
 
             return Task.CompletedTask;
         }

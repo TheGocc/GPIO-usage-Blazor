@@ -1,8 +1,7 @@
 ﻿@page "/"
-@inject IGpioManager GpioManager
 
 <h3>Read From pins</h3>
-@foreach (var item in GpioManager.GpioPins)
+@foreach (var item in Manager.GpioPins)
 {
     <div>@item.GpioAddress is @item.GpioValue</div>
 }
@@ -13,14 +12,23 @@
 
 
 @code{ 
+    [Inject]
+    public IGpioManager Manager { get; set; }
     protected override void OnAfterRender(bool firstRender)
     {
         if(firstRender){
-            var pin = new Model.GpioPin(1, Model.GpioType.Output);
-            GpioManager.GpioPins.Add(pin);
+            Manager.GpioPins.CollectionChanged += (o, e) =>
+            {
+                foreach (var p in e.NewItems)
+                {
+                    var pin = p as GPIO.Model.GpioPin;
+                    pin.PropertyChanged += (o, e) => StateHasChanged();
+                }
+                StateHasChanged();
+            };
 
-            pin.PropertyChanged += (o, e) => StateHasChanged();
-            StateHasChanged();
+            var pin = new Model.GpioPin(1, Model.GpioType.Output);
+            Manager.GpioPins.Add(pin);
         }
     }
 
@@ -28,7 +36,7 @@
     private void AddNewPin()
     {
         var pin = new Model.GpioPin(10, Model.GpioType.Output);
-        GpioManager.GpioPins.Add(pin);
+        Manager.GpioPins.Add(pin);
 
         //Write to pin
         pin.GpioValue = true;
