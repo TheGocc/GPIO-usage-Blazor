@@ -1,0 +1,21 @@
+﻿@page "/"
+@inject IGpioManager GpioManager
+
+<h1>Hello, world!</h1>
+
+Welcome to your new app.
+
+<SurveyPrompt Title="How is Blazor working for you?" />
+
+
+@code{ 
+
+    protected override void OnInitialized()
+    {
+        var pin = new Model.GpioPin(1, Model.GpioType.Output);
+        GpioManager.GpioPins.Add(pin);
+
+        pin.PropertyChanged += (o, e) => StateHasChanged();
+
+    }
+}
