@@ -6,6 +6,6 @@ namespace GPIO
     public interface IGpioManager
     {
         ObservableCollection<GpioPin> GpioPins { get; set; }
-        void ReadEveryPin();
+        void ReadPin();
     }
 }

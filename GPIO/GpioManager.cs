@@ -36,12 +36,10 @@ namespace GPIO
         }
 
 
-        public void ReadEveryPin()
+        public void ReadPin()
         {
-            foreach (var pin in GpioPins)
-            {
-                //TODO: Read from one pin
-            }
+            //TODO: Read from one pin
+
 
         }
     }

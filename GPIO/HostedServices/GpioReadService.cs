@@ -29,8 +29,12 @@ namespace GPIO.HostedServices
 
         private void ReadFromGpio(object state)
         {
-            gpioManager.ReadEveryPin();
             _logger.LogInformation("Read from every pin!");
+            foreach (var pin in gpioManager.GpioPins)
+            {
+                _logger.LogInformation($"Read from pin: {pin.GpioAddress}");
+                gpioManager.ReadPin();
+            }
         }
 
         public Task StopAsync(CancellationToken cancellationToken)
